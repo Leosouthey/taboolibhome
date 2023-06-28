@@ -19,10 +19,12 @@ export default function Home() {
             TabooLib是一个基于Kotlin的跨平台框架，旨在提供快速、安全的软件和丰富的插件API。作为Minecraft中最广泛使用、性能最佳、稳定性最高的软件之一，TabooLib提供快速更新和有益的支持，旨在改善Minecraft的生态系统。
           </p>
           <div className="flex flex-row gap-4 mt-8">
-            <Link href="/docs">
+            <Link href="/quickstart">
               <Button className="bg-taboo hover:bg-taboo-hover w-40 font-medium mr-4">
                 快速开始
               </Button>
+            </Link>
+            <Link href="/docs">
               <Button
                 variant="secondary"
                 className="bg-card hover:bg-card-item w-44 font-medium"
