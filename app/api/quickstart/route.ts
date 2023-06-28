@@ -85,8 +85,8 @@ async function writeBuildFile(zip: JSZip, searchParams: URLSearchParams) {
   });
   taboolib += "\n    classifier = null";
   const version = await getTabooLibVersion();
+  version;
   taboolib += `\n    version = "${version}"`;
-  console.log(metadata);
   if (metadata.description || metadata.authors || metadata.dependencies) {
     taboolib += `\n    description {`;
     if (metadata.description) {
@@ -215,23 +215,19 @@ function contains(obj: any[], key: string): boolean {
 }
 
 async function getTabooLibVersion() {
-  return fetch(
+  const response = await fetch(
     "https://api.github.com/repos/TabooLib/Taboolib/releases/latest"
-  ).then((response) => {
-    response.json().then((data) => {
-      return data["tag_name"];
-    });
-  });
+  );
+  const data = await response.json();
+  return data["tag_name"];
 }
 
 async function getTabooLibPluginVersion() {
-  return fetch(
+  const response = await fetch(
     "https://api.github.com/repos/TabooLib/TabooLib-Gradle-Plugin/releases/latest"
-  ).then((response) => {
-    response.json().then((data) => {
-      return data["tag_name"];
-    });
-  });
+  );
+  const data = await response.json();
+  return data["tag_name"];
 }
 
 async function writeDefaultFile(zip: JSZip) {
@@ -240,6 +236,17 @@ async function writeDefaultFile(zip: JSZip) {
 }
 
 async function writeFileToZip(zip: JSZip, filePath: string) {
+  if (filePath.endsWith(".gitingore")) {
+    const fileName = filePath.split("sdk")[1];
+    const fileContents = fs.readFileSync(filePath);
+    zip.file(fileName, fileContents);
+  }
+  if (filePath.endsWith(".github")) {
+    const files = fs.readdirSync(filePath);
+    files.forEach((file) => {
+      writeFileToZip(zip, path.join(filePath, file));
+    });
+  }
   if (fs.statSync(filePath).isFile()) {
     const fileName = filePath.split("sdk")[1];
     const fileContents = fs.readFileSync(filePath);
