@@ -7,7 +7,13 @@ import path from "path";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const project = JSON.parse(searchParams.get("project") || "{}") as Project;
-  const sdkPath = path.join(process.cwd(), "public", "sdk.zip");
+  const sdkPath = path.join(
+    process.cwd(),
+    "app",
+    "api",
+    "quickstart",
+    "sdk.zip"
+  );
   const data = await fs.readFileSync(sdkPath);
   const zip = await JSZip.loadAsync(data);
   await writeBuildFile(zip, searchParams);
