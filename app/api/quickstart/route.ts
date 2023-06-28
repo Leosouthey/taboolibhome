@@ -236,17 +236,6 @@ async function writeDefaultFile(zip: JSZip) {
 }
 
 async function writeFileToZip(zip: JSZip, filePath: string) {
-  if (filePath.endsWith(".gitingore")) {
-    const fileName = filePath.split("sdk")[1];
-    const fileContents = fs.readFileSync(filePath);
-    zip.file(fileName, fileContents);
-  }
-  if (filePath.endsWith(".github")) {
-    const files = fs.readdirSync(filePath);
-    files.forEach((file) => {
-      writeFileToZip(zip, path.join(filePath, file));
-    });
-  }
   if (fs.statSync(filePath).isFile()) {
     const fileName = filePath.split("sdk")[1];
     const fileContents = fs.readFileSync(filePath);
