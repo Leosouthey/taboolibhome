@@ -19,12 +19,6 @@ import TabooExpansions from "@/components/taboo-expansions";
 import TabooMetadata from "@/components/taboo-metadata";
 import { Button } from "@/components/ui/button";
 
-declare global {
-  interface Window {
-    messageModal: HTMLDialogElement;
-  }
-}
-
 export default function Quickstart() {
   const project = useFormStore((state) => state.project);
   const metadata = useFormStore((state) => state.metadata);
