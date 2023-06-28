@@ -7,8 +7,9 @@ import path from "path";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const project = JSON.parse(searchParams.get("project") || "{}") as Project;
-  const zip = new JSZip();
-  await writeDefaultFile(zip);
+  const sdkPath = path.join(process.cwd(), "public", "sdk.zip");
+  const data = await fs.readFileSync(sdkPath);
+  const zip = await JSZip.loadAsync(data);
   await writeBuildFile(zip, searchParams);
   await writeSettingsFile(zip, searchParams);
   await writeSrcFile(zip, searchParams);
@@ -228,22 +229,4 @@ async function getTabooLibPluginVersion() {
   );
   const data = await response.json();
   return data["tag_name"];
-}
-
-async function writeDefaultFile(zip: JSZip) {
-  const sdkPath = path.join(process.cwd(), "public", "sdk");
-  await writeFileToZip(zip, sdkPath);
-}
-
-async function writeFileToZip(zip: JSZip, filePath: string) {
-  if (fs.statSync(filePath).isFile()) {
-    const fileName = filePath.split("sdk")[1];
-    const fileContents = fs.readFileSync(filePath);
-    zip.file(fileName, fileContents);
-  } else {
-    const files = fs.readdirSync(filePath);
-    files.forEach((file) => {
-      writeFileToZip(zip, path.join(filePath, file));
-    });
-  }
 }
