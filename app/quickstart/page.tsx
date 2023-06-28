@@ -4,11 +4,35 @@ import { PiWarningFill } from "react-icons/pi";
 import { FaPen } from "react-icons/fa";
 import SubCard from "@/components/sub-card";
 import { useState } from "react";
+import useFormStore from "@/store/form";
 
 const contents = ["元数据", "模块", "运行平台", "附加组件"];
 
+declare global {
+  interface Window {
+    messageModal: HTMLDialogElement;
+  }
+}
+
 export default function Quickstart() {
   const [content, setContent] = useState("元数据");
+  const project = useFormStore((state) => state.project);
+  const metadata = useFormStore((state) => state.metadata);
+  const platforms = useFormStore((state) => state.platforms);
+  const modules = useFormStore((state) => state.modules);
+  const expansions = useFormStore((state) => state.expansions);
+  const setProject = useFormStore((state) => state.setProject);
+
+  const buildURL = () => {
+    const params = new URLSearchParams({
+      project: JSON.stringify(project),
+      metadata: JSON.stringify(metadata),
+      platforms: JSON.stringify(platforms),
+      modules: JSON.stringify(modules),
+      expansions: JSON.stringify(expansions),
+    });
+    return `/api/quickstart?${params.toString()}`;
+  };
   return (
     <div className="flex items-center justify-center">
       <div className="flex h-fit min-h-full">
@@ -32,6 +56,9 @@ export default function Quickstart() {
                 type="text"
                 placeholder="ExampleProject"
                 className="input input-bordered w-full h-8 max-w-xs"
+                onChange={(e) =>
+                  setProject({ ...project, name: e.target.value })
+                }
               />
             </div>
             <div className="form-control w-full max-w-xs mt-2">
@@ -50,6 +77,9 @@ export default function Quickstart() {
                 type="text"
                 placeholder="com.github.username"
                 className="input input-bordered w-full h-8 max-w-xs"
+                onChange={(e) =>
+                  setProject({ ...project, package: e.target.value })
+                }
               />
             </div>
           </div>
@@ -68,7 +98,29 @@ export default function Quickstart() {
             </ul>
           </div>
           <div className="w-full">
-            <button className="w-full btn mt-4 text-xl">生成项目</button>
+            <button
+              className="w-full btn mt-4 text-xl"
+              onClick={() => {
+                if (!project.name || !project.package) {
+                  // window.messageModal.showModal();
+                  alert("项目名称和包名不能为空");
+                  return;
+                } else {
+                  window.open(buildURL(), "_blank");
+                }
+              }}
+            >
+              生成项目
+            </button>
+            <dialog id="my_modal_1" className="modal">
+              <form method="dialog" className="modal-box">
+                <h3 className="font-bold text-lg">注意</h3>
+                <p className="py-4">项目名称和包名不能为空</p>
+                <div className="modal-action">
+                  <button className="btn">确定</button>
+                </div>
+              </form>
+            </dialog>
           </div>
         </div>
         <div className="flex w-[48rem] bg-base-100 rounded-xl shadow-xl overflow-x-hidden">

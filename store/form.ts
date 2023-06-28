@@ -1,4 +1,7 @@
 import { create } from "zustand";
+import rawPlatforms from "@/public/platforms.json";
+import rawModules from "@/public/modules.json";
+import rawExpansions from "@/public/expansions.json";
 
 interface FormState {
   metadata: Metadata;
@@ -6,11 +9,18 @@ interface FormState {
   modules: Module[];
   platforms: Platform[];
   expansions: Expansion[];
+  project: Project;
+  setProject: (project: Project) => void;
   setExpansions: (expansions: Expansion[]) => void;
   setPlatforms: (platforms: Platform[]) => void;
   setModules: (modules: Module[]) => void;
   setMetadata: (metadata: Metadata) => void;
   setInputData: (inputData: any) => void;
+}
+
+export interface Project {
+  name: string;
+  package: string;
 }
 
 export interface Expansion {
@@ -20,7 +30,8 @@ export interface Expansion {
 }
 
 export interface Platform {
-  name: string;
+  nickName: string;
+  realName: string;
   available: boolean;
 }
 
@@ -38,115 +49,9 @@ export interface Module {
   defaultSelected: boolean;
 }
 
-export const platforms: Platform[] = [
-  {
-    name: "Bukkit",
-    available: true,
-  },
-  {
-    name: "BungeeCord",
-    available: true,
-  },
-  {
-    name: "Velocity",
-    available: false,
-  },
-];
-
-export const modules: Module[] = [
-  {
-    realName: "common",
-    nickName: "common",
-    desc: "基础模块",
-    required: true,
-    defaultSelected: true,
-  },
-  {
-    realName: "common-5",
-    nickName: "common-5",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: true,
-  },
-  {
-    realName: "common-5（shaded）",
-    nickName: "common-5（shaded）",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "ai",
-    nickName: "ai",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "chat",
-    nickName: "chat",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "chat（shaded）",
-    nickName: "chat（shaded）",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "configuration",
-    nickName: "configuration",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "configuration（shaded）",
-    nickName: "configuration（shaded）",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "configuration-legacy",
-    nickName: "configuration-legacy",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "configuration-legacy（shaded）",
-    nickName: "configuration-legacy（shaded）",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "database",
-    nickName: "database",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-  {
-    realName: "database（shaded）",
-    nickName: "database（shaded）",
-    desc: "TabooLib5 中的基础模块",
-    required: false,
-    defaultSelected: false,
-  },
-];
-
-export const expansions: Expansion[] = [
-  {
-    nickName: "Universal Mythic",
-    realName: "Universal Mythic",
-    desc: "MythicMobs 版本兼容工具",
-  },
-];
+export const modules: Module[] = rawModules;
+export const platforms: Platform[] = rawPlatforms;
+export const expansions: Expansion[] = rawExpansions;
 
 const useFormStore = create<FormState>((set) => ({
   metadata: {} as Metadata,
@@ -156,6 +61,8 @@ const useFormStore = create<FormState>((set) => ({
   ),
   platforms: [],
   expansions: [],
+  project: {} as Project,
+  setProject: (project: Project) => set({ project }),
   setExpansions: (expansions: Expansion[]) => set({ expansions }),
   setPlatforms: (platforms: Platform[]) => set({ platforms }),
   setModules: (modules: Module[]) => set({ modules }),

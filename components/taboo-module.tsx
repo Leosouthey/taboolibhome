@@ -1,4 +1,4 @@
-import useFormStore, { Module, modules } from "@/store/form";
+import useFormStore, { modules } from "@/store/form";
 
 const TabooModule = () => {
   const selectedModules = useFormStore((state) => state.modules);

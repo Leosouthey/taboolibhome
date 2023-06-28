@@ -1,0 +1,17 @@
+[
+  {
+    "nickName": "Bukkit",
+    "realName": "platform-bukkit",
+    "available": true
+  },
+  {
+    "nickName": "BungeeCord",
+    "realName": "platform-bungee",
+    "available": true
+  },
+  {
+    "nickName": "Velocity",
+    "realName": "platform-velocity",
+    "available": false
+  }
+]

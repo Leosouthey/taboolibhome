@@ -1,5 +1,4 @@
 import useFormStore, { platforms } from "@/store/form";
-import { set } from "zod";
 
 const TabooPlatform = () => {
   const selectedPlatforms = useFormStore((state) => state.platforms);
@@ -12,8 +11,9 @@ const TabooPlatform = () => {
       <ul className="menu w-full p-0 mt-2">
         {platforms.map((item, key) => {
           const selected =
-            selectedPlatforms.find((platform) => platform.name == item.name) !==
-            undefined;
+            selectedPlatforms.find(
+              (platform) => platform.nickName == item.nickName
+            ) !== undefined;
           const available = item.available;
           return (
             <li key={key}>
@@ -30,7 +30,7 @@ const TabooPlatform = () => {
                     if (selected) {
                       setPlatforms(
                         selectedPlatforms.filter(
-                          (platform) => platform.name !== item.name
+                          (platform) => platform.realName !== item.realName
                         )
                       );
                     } else {
@@ -39,7 +39,7 @@ const TabooPlatform = () => {
                   }}
                   className="flex-1"
                 >
-                  {item.name}
+                  {item.nickName}
                 </div>
                 {available ? (
                   ""

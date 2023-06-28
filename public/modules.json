@@ -1,0 +1,16 @@
+[
+  {
+    "realName": "common",
+    "nickName": "common",
+    "desc": "基础模块",
+    "required": true,
+    "defaultSelected": true
+  },
+  {
+    "realName": "common-5",
+    "nickName": "common-5",
+    "desc": "TabooLib5 中的基础模块",
+    "required": false,
+    "defaultSelected": true
+  }
+]
