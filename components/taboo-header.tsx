@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { name: "首页", href: "/" },
   { name: "快速开始", href: "/quickstart" },
+  { name: "版本列表", href: "/versions" },
   { name: "文档", href: "/docs" },
 ];
 
@@ -27,7 +28,7 @@ const TabooHeader = () => {
             <Link
               className={
                 isActive
-                  ? "text-taboo-primary btn btn-ghost normal-case text-xl"
+                  ? "text-taboo-primary btn btn-ghost normal-case text-xl h-4"
                   : "btn btn-ghost normal-case text-xl"
               }
               href={link.href}
