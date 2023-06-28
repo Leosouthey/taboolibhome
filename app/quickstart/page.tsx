@@ -2,11 +2,22 @@
 
 import { PiWarningFill } from "react-icons/pi";
 import { FaPen } from "react-icons/fa";
-import SubCard from "@/components/sub-card";
-import { useState } from "react";
+import React from "react";
 import useFormStore from "@/store/form";
-
-const contents = ["元数据", "模块", "运行平台", "附加组件"];
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import TabooModule from "@/components/taboo-module";
+import TabooPlatform from "@/components/taboo-platform";
+import TabooExpansions from "@/components/taboo-expansions";
+import TabooMetadata from "@/components/taboo-metadata";
+import { Button } from "@/components/ui/button";
 
 declare global {
   interface Window {
@@ -15,7 +26,6 @@ declare global {
 }
 
 export default function Quickstart() {
-  const [content, setContent] = useState("元数据");
   const project = useFormStore((state) => state.project);
   const metadata = useFormStore((state) => state.metadata);
   const platforms = useFormStore((state) => state.platforms);
@@ -34,25 +44,26 @@ export default function Quickstart() {
     return `/api/quickstart?${params.toString()}`;
   };
   return (
-    <div className="flex items-center justify-center">
-      <div className="flex h-fit min-h-full">
-        <div className="flex flex-col items-center w-[18rem] h-fit mr-8 bg-base-100 rounded-xl shadow-xl px-4 py-8">
+    <div className="flex items-start justify-center">
+      <div className="flex flex-col md:flex-row h-fit min-h-full">
+        <div className="bg-card flex flex-col items-center w-full md:w-[18rem] h-fit mr-8 rounded-xl shadow-xl px-4 py-8">
           <div className="flex flex-col items-center w-full">
-            <h1 className="flex text-3xl text-taboo-primary">
+            <h1 className="flex text-3xl text-taboo">
               <FaPen className="mr-1" />
               创建项目
             </h1>
-            <p className="text-base-content text-opacity-80 mt-4">
+            <p className="text-lg text-opacity-80 mt-4">
               输入基本信息并选择一些模块来快速生成你的 TabooLib 项目。
             </p>
           </div>
-          <div className="divider" />
-          <div className="flex flex-col h-full">
+          <div className="border-b border-gray-300 w-full mt-4"></div>
+          <div className="flex flex-col h-full w-full mt-4">
             <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text text-xl">项目名称</span>
-              </label>
-              <input
+              <Label htmlFor="name" className="text-base mb-1">
+                项目名称
+              </Label>
+              <Input
+                id="name"
                 type="text"
                 placeholder="ExampleProject"
                 className="input input-bordered w-full h-8 max-w-xs"
@@ -61,22 +72,28 @@ export default function Quickstart() {
                 }
               />
             </div>
-            <div className="form-control w-full max-w-xs mt-2">
-              <label className="label">
-                <span className="label-text text-xl">包名</span>
-                <span className="label-text-alt">
-                  <div
-                    className="tooltip z-10"
-                    data-tip="包名不要与现有的项目重复，否则将会导致 TabooLib 无法加载。"
-                  >
-                    <PiWarningFill size="18px" />
-                  </div>
-                </span>
-              </label>
-              <input
+            <div className="w-full max-w-xs mt-2">
+              <Label htmlFor="package">
+                <div className="flex justify-between text-base mb-1">
+                  <span>包名</span>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <PiWarningFill size="18px" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>包名不要与现有的项目重复，</p>
+                        <p>否则将会导致 TabooLib 无法加载。</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </Label>
+              <Input
+                id="package"
                 type="text"
                 placeholder="com.github.username"
-                className="input input-bordered w-full h-8 max-w-xs"
+                className="input input-bordered w-full h-8"
                 onChange={(e) =>
                   setProject({ ...project, package: e.target.value })
                 }
@@ -84,22 +101,8 @@ export default function Quickstart() {
             </div>
           </div>
           <div className="w-full">
-            <ul className="menu text-xl rounded-box p-0 mt-4">
-              {contents.map((item) => (
-                <li key={item}>
-                  <a
-                    className={`${content === item && "active"}`}
-                    onClick={() => setContent(item)}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="w-full">
-            <button
-              className="w-full btn mt-4 text-xl"
+            <Button
+              className="w-full bg-taboo mt-8 text-xl hover:bg-taboo-hover"
               onClick={() => {
                 if (!project.name || !project.package) {
                   // window.messageModal.showModal();
@@ -111,21 +114,39 @@ export default function Quickstart() {
               }}
             >
               生成项目
-            </button>
-            <dialog id="my_modal_1" className="modal">
-              <form method="dialog" className="modal-box">
-                <h3 className="font-bold text-lg">注意</h3>
-                <p className="py-4">项目名称和包名不能为空</p>
-                <div className="modal-action">
-                  <button className="btn">确定</button>
-                </div>
-              </form>
-            </dialog>
+            </Button>
           </div>
         </div>
-        <div className="flex w-[48rem] bg-base-100 rounded-xl shadow-xl overflow-x-hidden">
-          <SubCard content={content} />
-        </div>
+      </div>
+      <div className="flex w-full h-fit md:w-[48rem] rounded-xl overflow-x-hidden">
+        <Tabs defaultValue="metadata" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="metadata">元数据</TabsTrigger>
+            <TabsTrigger value="modules">模块</TabsTrigger>
+            <TabsTrigger value="platforms">运行平台</TabsTrigger>
+            <TabsTrigger value="expansions">附加组件</TabsTrigger>
+          </TabsList>
+          <TabsContent value="metadata">
+            <div className="bg-card flex flex-col p-8 w-full md:w-[48rem] rounded-xl shadow-xl">
+              <TabooMetadata />
+            </div>
+          </TabsContent>
+          <TabsContent value="modules">
+            <div className="bg-card flex flex-col p-8 w-full md:w-[48rem] rounded-xl shadow-xl">
+              <TabooModule />
+            </div>
+          </TabsContent>
+          <TabsContent value="platforms">
+            <div className="bg-card flex flex-col p-8 w-full md:w-[48rem] rounded-xl shadow-xl">
+              <TabooPlatform />
+            </div>
+          </TabsContent>
+          <TabsContent value="expansions">
+            <div className="bg-card flex flex-col p-8 w-full md:w-[48rem] rounded-xl shadow-xl">
+              <TabooExpansions />
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

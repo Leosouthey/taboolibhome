@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import TabooHeader from "@/components/taboo-header";
+import PageHeader from "@/components/page-header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TabooHeader />
-        <div className="h-full flex-grow">{children}</div>
-        <footer className="footer footer-center p-4 bg-base-300 text-base-content flex-shrink mt-8">
-          <div>
-            <p>Copyright © 2023 - All right reserved by TabooProject</p>
-          </div>
-        </footer>
+        <div className="flex flex-col w-screen min-h-screen">
+          <PageHeader />
+          <div className="h-full flex-grow pt-[6rem]">{children}</div>
+          <footer className="flex justify-center items-center p-4 bg-base-300 text-base-content flex-shrink mt-8">
+            <div>
+              <p>Copyright © 2023 - All right reserved by TabooProject</p>
+            </div>
+          </footer>
+        </div>
       </body>
     </html>
   );

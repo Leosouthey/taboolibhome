@@ -4,6 +4,16 @@ import Image from "next/image";
 import github from "public/github.png";
 import mcbbs from "public/mcbbs.png";
 import useSWR from "swr";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const { data, isLoading, error } = useSWR(
@@ -22,7 +32,7 @@ export default function Home() {
             onClick={() =>
               window.open("https://github.com/TabooLib/taboolib", "_blank")
             }
-            className="flex flex-col items-center justify-center w-[18rem] h-[6rem] mr-8 bg-base-100 rounded-xl shadow-xl mb-4 cursor-pointer"
+            className="bg-card flex flex-col items-center justify-center w-[18rem] h-[6rem] mr-8 rounded-xl shadow-xl mb-4 cursor-pointer"
           >
             <div className="flex flex-col px-8">
               <Image src={github} className="select-none" alt="Github" />
@@ -35,7 +45,7 @@ export default function Home() {
                 "_blank"
               )
             }
-            className="flex flex-col items-center justify-center w-[18rem] h-[6rem] mr-8 bg-base-100 rounded-xl shadow-xl cursor-pointer"
+            className="bg-card flex flex-col items-center justify-center w-[18rem] h-[6rem] mr-8 rounded-xl shadow-xl cursor-pointer"
           >
             <div className="flex flex-col px-8">
               <Image src={mcbbs} className="select-none" alt="MCBBS" />
@@ -44,54 +54,66 @@ export default function Home() {
         </div>
         <div className="flex flex-col">
           {isLoading && (
-            <div className="flex w-[48rem] h-[13rem] rounded-xl overflow-x-hidden mb-4 justify-center">
-              <span className="loading loading-dots loading-lg"></span>
+            <div className="flex w-[48rem] h-[13rem] rounded-xl mb-4 justify-center items-center">
+              <div className="bg-blue-600 p-2 w-4 h-4 rounded-full animate-bounce blue-circle mr-2"></div>
+              <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle mr-2"></div>
+              <div className="bg-red-600 p-2 w-4 h-4 rounded-full animate-bounce red-circle mr-2"></div>
             </div>
           )}
           {error && <div>ERROR</div>}
           {data &&
             data.workflow_runs
-              .filter((action: any) =>
+              ?.filter((action: any) =>
                 action.display_title.includes("[publish]")
               )
               .slice(0, 5)
               .map((action: any, key: number) => {
                 return (
-                  <div
+                  <Card
                     key={key}
-                    className="card w-[48rem] bg-base-100 h-[13rem] rounded-xl shadow-xl overflow-x-hidden mb-4"
+                    className="border-none bg-card w-[48rem] h-[13rem] rounded-xl shadow-xl mb-4"
                   >
-                    <div className="card-body">
-                      <h2 className="card-title">
-                        {getVersion(action)}
+                    <CardHeader>
+                      <CardTitle className="flex items-center">
+                        <div className="mr-2">{getVersion(action)}</div>
                         {action.conclusion === "success" ? (
-                          <div className="badge badge-success">构建成功</div>
+                          <Badge className="mr-2">构建成功</Badge>
                         ) : (
-                          <div className="badge badge-error">构建失败</div>
+                          <Badge className="mr-2" variant="destructive">
+                            构建失败
+                          </Badge>
                         )}
                         {key === 0 && (
-                          <div className="badge badge-ghost">最新版本</div>
+                          <Badge className="bg-light-taboo hover:bg-taboo">
+                            最新版本
+                          </Badge>
                         )}
-                      </h2>
-                      <p>{getDesc(action)}</p>
-                      <div className="card-actions justify-between items-center">
+                      </CardTitle>
+                      <CardDescription>
                         <div className="font-mono text-sm">
                           {new Date(action.created_at).toLocaleString()}
                         </div>
-                        <button
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p>{getDesc(action)}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <div className="flex w-full justify-end items-center">
+                        <Button
                           onClick={() => {
                             window.open(
                               "https://github.com/TabooLib/taboolib/releases/tag/" +
                                 getVersion(action)
                             );
                           }}
-                          className="btn"
+                          className="bg-light-taboo hover:bg-taboo text-white"
                         >
                           点击查看
-                        </button>
+                        </Button>
                       </div>
-                    </div>
-                  </div>
+                    </CardFooter>
+                  </Card>
                 );
               })}
           {data && (
@@ -102,7 +124,7 @@ export default function Home() {
                   "_blank"
                 );
               }}
-              className="btn text-xl w-[48rem] bg-base-100 h-[4rem] rounded-xl shadow-xl overflow-x-hidden mb-4"
+              className="bg-card text-xl w-[48rem] h-[4rem] rounded-xl shadow-xl overflow-x-hidden mb-4"
             >
               更多版本点我前往Github查看
             </button>
