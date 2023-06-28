@@ -17,28 +17,24 @@ const TabooExpansions = () => {
           return (
             <li key={key}>
               <a
+                onClick={() => {
+                  if (selected) {
+                    setExpansions(
+                      selectedExpansions.filter(
+                        (expansion) => expansion.realName !== item.realName
+                      )
+                    );
+                  } else {
+                    setExpansions([...selectedExpansions, item]);
+                  }
+                }}
                 className={
                   selected
                     ? "flex items-center active mt-2"
                     : "flex items-center mt-2"
                 }
               >
-                <div
-                  onClick={() => {
-                    if (selected) {
-                      setExpansions(
-                        selectedExpansions.filter(
-                          (expansion) => expansion.realName !== item.realName
-                        )
-                      );
-                    } else {
-                      setExpansions([...selectedExpansions, item]);
-                    }
-                  }}
-                  className="flex-1"
-                >
-                  {item.nickName}
-                </div>
+                <div className="flex-1">{item.nickName}</div>
               </a>
             </li>
           );

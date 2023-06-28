@@ -17,31 +17,27 @@ const TabooModule = () => {
           return (
             <li key={key}>
               <a
+                onClick={() => {
+                  if (selected) {
+                    if (item.required) {
+                      return;
+                    }
+                    setModules(
+                      selectedModules.filter(
+                        (module) => module.realName !== item.realName
+                      )
+                    );
+                  } else {
+                    setModules([...selectedModules, item]);
+                  }
+                }}
                 className={
                   selected
                     ? "flex items-center active mt-2"
                     : "flex items-center mt-2"
                 }
               >
-                <div
-                  onClick={() => {
-                    if (selected) {
-                      if (item.required) {
-                        return;
-                      }
-                      setModules(
-                        selectedModules.filter(
-                          (module) => module.realName !== item.realName
-                        )
-                      );
-                    } else {
-                      setModules([...selectedModules, item]);
-                    }
-                  }}
-                  className="flex-1"
-                >
-                  {item.nickName}
-                </div>
+                <div className="flex-1">{item.nickName}</div>
                 {/*<div className="flex items-center bg-base-300 rounded-md cursor-pointer text-black">*/}
                 {/*  <CgSelect size="18px" />*/}
                 {/*</div>*/}

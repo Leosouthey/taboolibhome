@@ -18,6 +18,17 @@ const TabooPlatform = () => {
           return (
             <li key={key}>
               <a
+                onClick={() => {
+                  if (selected) {
+                    setPlatforms(
+                      selectedPlatforms.filter(
+                        (platform) => platform.realName !== item.realName
+                      )
+                    );
+                  } else {
+                    setPlatforms([...selectedPlatforms, item]);
+                  }
+                }}
                 className={
                   (selected
                     ? "flex items-center active mt-2"
@@ -25,22 +36,7 @@ const TabooPlatform = () => {
                   (available ? "" : " btn-disabled bg-base-200")
                 }
               >
-                <div
-                  onClick={() => {
-                    if (selected) {
-                      setPlatforms(
-                        selectedPlatforms.filter(
-                          (platform) => platform.realName !== item.realName
-                        )
-                      );
-                    } else {
-                      setPlatforms([...selectedPlatforms, item]);
-                    }
-                  }}
-                  className="flex-1"
-                >
-                  {item.nickName}
-                </div>
+                <div className="flex-1">{item.nickName}</div>
                 {available ? (
                   ""
                 ) : (
