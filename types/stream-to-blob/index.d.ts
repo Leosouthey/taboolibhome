@@ -3,5 +3,6 @@ declare module "stream-to-blob" {
     stream: NodeJS.ReadableStream,
     mimeType?: string
   ): Promise<Blob>;
+
   export = streamToBlob;
 }
