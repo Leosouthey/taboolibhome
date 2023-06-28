@@ -9,8 +9,8 @@ module.exports = {
   ],
   theme: {
     colors: ({ colors }) => ({
-      "card-item": "rgb(224,234,252)",
-      "card-item-hover": "rgb(214,224,244)",
+      "card-item": "rgb(235,241,253)",
+      "card-item-hover": "rgb(224,234,252)",
       card: "rgb(235,241,253)",
       background: "rgb(248,250,255)",
       hover: "#E9F0FFFF",
