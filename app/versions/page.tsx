@@ -3,7 +3,6 @@
 import Image from "next/image";
 import github from "public/github.png";
 import mcbbs from "public/mcbbs.png";
-import useSWR from "swr";
 import {
   Card,
   CardContent,
@@ -15,15 +14,19 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-export default function Home() {
-  const { data, isLoading, error } = useSWR(
-    "https://api.github.com/repos/TabooLib/Taboolib/actions/runs",
-    async (url) => {
-      const res = await fetch(url);
-      return res.json();
-    }
+async function getData() {
+  const res = await fetch(
+    "https://api.github.com/repos/TabooLib/Taboolib/actions/runs"
   );
+  if (!res.ok) {
+    return null;
+  }
 
+  return res.json();
+}
+
+export default async function Home() {
+  const data = await getData();
   return (
     <div className="flex items-center justify-center">
       <div className="flex h-fit min-h-full">
@@ -53,15 +56,14 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col">
-          {isLoading && (
+          {data == null ?? (
             <div className="flex w-[48rem] h-[13rem] rounded-xl mb-4 justify-center items-center">
               <div className="bg-blue-600 p-2 w-4 h-4 rounded-full animate-bounce blue-circle mr-2"></div>
               <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle mr-2"></div>
               <div className="bg-red-600 p-2 w-4 h-4 rounded-full animate-bounce red-circle mr-2"></div>
             </div>
           )}
-          {error && <div>ERROR</div>}
-          {data &&
+          {data != null &&
             data.workflow_runs
               ?.filter((action: any) =>
                 action.display_title.includes("[publish]")
@@ -116,7 +118,7 @@ export default function Home() {
                   </Card>
                 );
               })}
-          {data && (
+          {data != null && (
             <button
               onClick={() => {
                 window.open(
