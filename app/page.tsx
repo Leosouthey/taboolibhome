@@ -1,9 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import taboolib from "@/public/taboolib.png";
 import Image from "next/image";
+import NewBlank from "@/components/new-blank";
 
 export default function Home() {
   return (
@@ -45,10 +44,8 @@ export default function Home() {
             <span className="text-light-taboo">最佳体验。</span>
           </h2>
           <div className="grid md:grid-cols-3 md:-ml-4 gap-2 px-2 xl:gap-4">
-            <div
-              onClick={() => {
-                window.open("https://github.com/TabooLib/adyeshach", "_blank");
-              }}
+            <NewBlank
+              href="https://github.com/TabooLib/adyeshach"
               className="cursor-pointer hover:bg-card-item-hover px-8 py-8 rounded-xl hover:shadow-2xl transition-all duration-300"
             >
               <h3 className="font-medium">Adyeshach</h3>
@@ -56,11 +53,9 @@ export default function Home() {
                 Adyeshach
                 是一款基于TabooLib进行开发的NPC插件，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Adyeshach致力于改善游戏体验，为玩家提供更加丰富的内容和更好的性能表现。
               </p>
-            </div>
-            <div
-              onClick={() => {
-                window.open("https://github.com/TabooLib/chemdah", "_blank");
-              }}
+            </NewBlank>
+            <NewBlank
+              href="https://github.com/TabooLib/chemdah"
               className="cursor-pointer hover:bg-card-item-hover px-8 py-8 rounded-xl hover:shadow-2xl transition-all duration-300"
             >
               <h3 className="font-medium">Chemdah</h3>
@@ -68,11 +63,9 @@ export default function Home() {
                 Chemdah
                 是一款基于TabooLib的任务插件，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Chemdah致力于改善游戏体验，为玩家提供更加丰富的任务内容和更好的性能表现。
               </p>
-            </div>
-            <div
-              onClick={() => {
-                window.open("https://kether.tabooproject.org", "_blank");
-              }}
+            </NewBlank>
+            <NewBlank
+              href="https://kether.tabooproject.org"
               className="cursor-pointer hover:bg-card-item-hover px-8 py-8 rounded-xl hover:shadow-2xl transition-all duration-300"
             >
               <h3 className="font-medium">Kether</h3>
@@ -80,7 +73,7 @@ export default function Home() {
                 Kether
                 是一款与TabooLib密不可分的脚本系统，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Kether致力于改善游戏体验，为玩家提供更加丰富的脚本内容和更好的性能表现。
               </p>
-            </div>
+            </NewBlank>
           </div>
         </div>
       </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import github from "public/github.png";
 import mcbbs from "public/mcbbs.png";
@@ -12,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import NewBlank from "@/components/new-blank";
 
 async function getData() {
   const res = await fetch(
@@ -31,29 +29,22 @@ export default async function Home() {
     <div className="flex items-center justify-center">
       <div className="flex h-fit min-h-full">
         <div className="flex flex-col items-center">
-          <div
-            onClick={() =>
-              window.open("https://github.com/TabooLib/taboolib", "_blank")
-            }
+          <NewBlank
+            href="https://github.com/TabooLib/taboolib"
             className="bg-card flex flex-col items-center justify-center w-[18rem] h-[6rem] mr-8 rounded-xl shadow-xl mb-4 cursor-pointer"
           >
             <div className="flex flex-col px-8">
               <Image src={github} className="select-none" alt="Github" />
             </div>
-          </div>
-          <div
-            onClick={() =>
-              window.open(
-                "https://www.mcbbs.net/thread-773065-1-1.html",
-                "_blank"
-              )
-            }
+          </NewBlank>
+          <NewBlank
+            href="https://www.mcbbs.net/thread-773065-1-1.html"
             className="bg-card flex flex-col items-center justify-center w-[18rem] h-[6rem] mr-8 rounded-xl shadow-xl cursor-pointer"
           >
             <div className="flex flex-col px-8">
               <Image src={mcbbs} className="select-none" alt="MCBBS" />
             </div>
-          </div>
+          </NewBlank>
         </div>
         <div className="flex flex-col">
           {data == null ?? (
@@ -102,39 +93,41 @@ export default async function Home() {
                     </CardContent>
                     <CardFooter>
                       <div className="flex w-full justify-end items-center">
-                        <Button
-                          onClick={() => {
-                            window.open(
-                              "https://github.com/TabooLib/taboolib/releases/tag/" +
-                                getVersion(action)
-                            );
-                          }}
+                        <NewBlank
+                          href={
+                            "https://github.com/TabooLib/taboolib/releases/tag/" +
+                            getVersion(action)
+                          }
                           className="bg-light-taboo hover:bg-taboo text-white"
                         >
                           点击查看
-                        </Button>
+                        </NewBlank>
                       </div>
                     </CardFooter>
                   </Card>
                 );
               })}
           {data != null && (
-            <button
-              onClick={() => {
-                window.open(
-                  "https://github.com/TabooLib/taboolib/actions",
-                  "_blank"
-                );
-              }}
+            <NewBlank
+              href="https://github.com/TabooLib/taboolib/actions"
               className="bg-card text-xl w-[48rem] h-[4rem] rounded-xl shadow-xl overflow-x-hidden mb-4"
             >
               更多版本点我前往Github查看
-            </button>
+            </NewBlank>
           )}
         </div>
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await res.json();
+
+  return {
+    props: { data },
+  };
 }
 
 function getVersion(action: any) {

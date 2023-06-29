@@ -19,6 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import NewBlank from "@/components/new-blank";
 
 const navLinks = [
   { name: "首页", href: "/" },
@@ -58,7 +59,6 @@ const PageHeader = () => {
           <DropdownMenuContent className="w-40 border-none">
             <DropdownMenuItem
               onClick={() => {
-                // 当前页面打开
                 window.open("https://github.com/TabooLib/adyeshach", "_self");
               }}
             >
@@ -105,14 +105,12 @@ const PageHeader = () => {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex-1 flex justify-end">
-        <div
-          onClick={() => {
-            window.open("https://github.com/TabooLib/taboolib", "_blank");
-          }}
+        <NewBlank
+          href="https://github.com/TabooLib/taboolib"
           className="cursor-pointer"
         >
           <BsGithub size="24px" />
-        </div>
+        </NewBlank>
       </div>
       {/*<div className="flex-none md:hidden">*/}
       {/*  <button className="btn btn-square btn-ghost">*/}
