@@ -94,6 +94,7 @@ export default async function Home() {
                     <CardFooter>
                       <div className="flex w-full justify-end items-center">
                         <NewBlank
+                          button
                           href={
                             "https://github.com/TabooLib/taboolib/releases/tag/" +
                             getVersion(action)
