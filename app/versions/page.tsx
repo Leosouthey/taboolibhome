@@ -121,15 +121,6 @@ export default async function Home() {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const data = await res.json();
-
-  return {
-    props: { data },
-  };
-}
-
 function getVersion(action: any) {
   return (
     action.display_title.split("]")[0].split("[")[1] + "-" + action.run_number
