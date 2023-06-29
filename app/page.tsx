@@ -35,7 +35,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex-1 lg:flex hidden justify-end items-center">
-          <Image src={taboolib} alt="TabooLib" className="h-64" />
+          <Image src={taboolib} alt="TabooLib" className="h-52" />
         </div>
       </div>
       <div className="w-full pt-12 pb-8 bg-card-item">
@@ -53,7 +53,8 @@ export default function Home() {
             >
               <h3 className="font-medium">Adyeshach</h3>
               <p className="text-gray-800 mt-4">
-                Adyeshach是一款基于TabooLib进行开发的NPC插件，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Adyeshach致力于改善游戏体验，为玩家提供更加丰富的内容和更好的性能表现。
+                Adyeshach
+                是一款基于TabooLib进行开发的NPC插件，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Adyeshach致力于改善游戏体验，为玩家提供更加丰富的内容和更好的性能表现。
               </p>
             </div>
             <div
@@ -64,7 +65,8 @@ export default function Home() {
             >
               <h3 className="font-medium">Chemdah</h3>
               <p className="text-gray-800 mt-4">
-                Chemdah是一款基于TabooLib的任务插件，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Chemdah致力于改善游戏体验，为玩家提供更加丰富的任务内容和更好的性能表现。
+                Chemdah
+                是一款基于TabooLib的任务插件，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Chemdah致力于改善游戏体验，为玩家提供更加丰富的任务内容和更好的性能表现。
               </p>
             </div>
             <div
@@ -75,7 +77,8 @@ export default function Home() {
             >
               <h3 className="font-medium">Kether</h3>
               <p className="text-gray-800 mt-4">
-                Kether是一款与TabooLib密不可分的脚本系统，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Kether致力于改善游戏体验，为玩家提供更加丰富的脚本内容和更好的性能表现。
+                Kether
+                是一款与TabooLib密不可分的脚本系统，旨在大幅提升性能并提供更高级的功能和API。与Minecraft游戏服务器Paper类似，Kether致力于改善游戏体验，为玩家提供更加丰富的脚本内容和更好的性能表现。
               </p>
             </div>
           </div>
