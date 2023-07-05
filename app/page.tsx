@@ -7,7 +7,10 @@ import NewBlank from "@/components/new-blank";
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="max-w-6xl flex flex-row mx-auto px-4 pt-24 pb-24 lg:pt-42 lg:pb-48 w-full">
+      <div className="max-w-6xl flex flex-row mx-auto px-8 md:px-4 pt-24 pb-24 lg:pt-42 lg:pb-48 w-full">
+        <div className="flex-1 lg:flex hidden justify-start items-center">
+          <Image src={taboolib} alt="TabooLib" className="h-80 w-80" />
+        </div>
         <div className="flex-1">
           <h1 className="font-medium leading-normal lg:text-5xl lg:leading-normal text-4xl">
             现代化框架
@@ -32,9 +35,6 @@ export default function Home() {
               </Button>
             </Link>
           </div>
-        </div>
-        <div className="flex-1 lg:flex hidden justify-end items-center">
-          <Image src={taboolib} alt="TabooLib" className="h-52" />
         </div>
       </div>
       <div className="w-full pt-12 pb-8 bg-card-item">

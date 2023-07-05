@@ -52,7 +52,7 @@ const PageHeader = () => {
       <div className="flex-1">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="text-taboo bg-background normal-case text-xl shadow-none hover:bg-hover">
+            <Button className="focus-visible:ring-0 text-taboo bg-background normal-case text-xl shadow-none hover:bg-hover">
               TabooLib
             </Button>
           </DropdownMenuTrigger>
