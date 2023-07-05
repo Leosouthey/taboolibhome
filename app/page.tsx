@@ -29,7 +29,7 @@ export default function Home() {
             <Link href="/docs">
               <Button
                 variant="secondary"
-                className="bg-card hover:bg-card-item w-44 font-medium"
+                className="bg-card hover:bg-[#E2E9F1FF] w-44 font-medium"
               >
                 查看文档
               </Button>

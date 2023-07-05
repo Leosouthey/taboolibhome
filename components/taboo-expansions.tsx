@@ -5,7 +5,7 @@ const TabooExpansions = () => {
   const setExpansions = useFormStore((state) => state.setExpansions);
 
   const itemsClasses =
-    "flex items-center w-full px-2 h-8 rounded-md cursor-pointer transition-all mb-2 hover:bg-card-item hover:text-black";
+    "flex items-center w-full px-2 h-8 rounded-md cursor-pointer transition-all mb-2 hover:bg-[#E2E9F1FF] hover:text-black";
   const selectedClasses =
     "flex items-center w-full px-2 h-8 rounded-md cursor-pointer transition-all mb-2 bg-light-taboo text-white hover:bg-light-taboo hover:text-white";
   return (
